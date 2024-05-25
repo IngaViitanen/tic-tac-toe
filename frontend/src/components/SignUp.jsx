@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Axios from 'axios'
 import Cookies from "universal-cookie"
 
-const SignUp = () => {
+const SignUp = ({setIsAuth}) => {
     const [user, setUser] = useState()
 
     const signUp = (e) => {
@@ -18,6 +18,7 @@ const SignUp = () => {
         cookies.set("username", username)
         cookies.set("password", password)
         cookies.set("hashedPass", hashedPass)
+        setIsAuth(true)
       })
     }
 
