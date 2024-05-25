@@ -3,7 +3,9 @@ import './App.css'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
 import { StreamChat } from "stream-chat"
+import { Chat } from "stream-chat-react"
 import Cookies from "universal-cookie"
+import JoinGame from './components/JoinGame'
 
 function App() {
   const api_key = import.meta.env.VITE_API_KEY
@@ -24,7 +26,7 @@ function App() {
     setIsAuth(false)
   }
 
-  if(token) {
+  if (token) {
     client.connectUser({
       id: cookies.get("userId"),
       name: cookies.get("username"),
@@ -32,7 +34,7 @@ function App() {
       lastName: cookies.get("lastName"),
       hashedPass: cookies.get("hashedPass"),
     },
-    token 
+      token
     ).then((user) => {
       setIsAuth(true)
     })
@@ -40,12 +42,17 @@ function App() {
 
   return (
     <>
-    {isAuth ? <button onClick={logout}>Logout</button> : (
-      <>
-      <SignUp setIsAuth={setIsAuth}/>
-      <Login setIsAuth={setIsAuth}/>
-      </>
-    )}
+      {isAuth ?
+        <Chat client={client}>
+          <JoinGame />
+          <button onClick={logout}>Logout</button>
+        </Chat>
+        : (
+          <>
+            <SignUp setIsAuth={setIsAuth} />
+            <Login setIsAuth={setIsAuth} />
+          </>
+        )}
     </>
   )
 }
