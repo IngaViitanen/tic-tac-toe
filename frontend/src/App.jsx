@@ -41,7 +41,7 @@ function App() {
   }
 
   return (
-    <>
+    <main>
       {isAuth ?
         <Chat client={client}>
           <JoinGame />
@@ -53,7 +53,7 @@ function App() {
             <Login setIsAuth={setIsAuth} />
           </>
         )}
-    </>
+    </main>
   )
 }
 
