@@ -1,9 +1,27 @@
 import React, { useState } from 'react'
+import Cookies from 'universal-cookie'
+import Axios from 'axios'
 
 const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const login = () => {}
+   
+    const login = (e) => {
+      e.preventDefault()
+      const cookies = new Cookies()
+      Axios.post("http://localhost:4000/login", {
+        username,
+        password
+      }).then(res => {
+        const {token, userId, firstName, lastName, username} = res.data
+
+        cookies.set("token", token)
+        cookies.set("userId", userId)
+        cookies.set("firstName", firstName)
+        cookies.set("lastName", lastName)
+        cookies.set("username", username)
+      })
+    }
 
   return (
     <>
