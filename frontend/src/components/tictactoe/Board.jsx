@@ -12,8 +12,8 @@ const Board = ({result, setResult}) => {
     const {client} = useChatContext()
 
     useEffect(() => {
-        checkWin()
         checkIfTie()
+        checkWin()
     }, [board])
 
     const chooseSquare = async (square) => {
